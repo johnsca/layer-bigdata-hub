@@ -1,0 +1,11 @@
+name: bigdata-hub
+summary: Big Data Hub provides service discovery for big data charms.
+maintainer: bigdata-dev <bigdata-dev@canonical.com>
+description: >
+  This charm runs the Big Data Hub service which provides service discovery
+  for big data charms.
+tags: ["applications", "bigdata", "hadoop", "apache"]
+provides:
+  hub:
+    interface: bigdata-hub
+

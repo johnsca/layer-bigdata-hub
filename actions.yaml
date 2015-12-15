@@ -1,0 +1,29 @@
+register-service:
+  description: Register an external service with the Big Data Hub.
+  params:
+    name:
+      type: string
+      description: >
+        The name of the service to register.
+        The name must match one expected by another service.  For example,
+        the Spark charm supports an "hdfs" service.
+    data:
+      type: string
+      description: >
+        The data to be provided for the service, as a JSON string.
+        The data provided must match that expected by charms consuming this
+        service, and must at a minimum contain an "ip" field with the IP
+        address for the service.
+  required: [name, data]
+service-info:
+  description: >
+    Get info about providers of registered services.
+    The data will be returned as a map of service name(s) to a list of
+    providers of that service.  The list can be empty if the service is not
+    being provided.
+  params:
+    name:
+      type: string
+      description: >
+        The name of the service to get info about.  If omitted, information
+        about all services will be returned.

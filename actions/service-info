@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+
+import sys
+import yaml
+
+from charmhelpers.core.hookenv import action_get
+from charmhelpers.core.hookenv import action_set
+
+sys.path.extend('lib')
+from charms.bigdata_hub import all_services
+
+
+def main():
+    services = all_services()
+    name = action_get('name')
+
+    if name:
+        services = {name: services[name]} if name in services else {}
+
+    action_set({'services': yaml.dump(services)})
+
+
+if __name__ == '__main__':
+    main()

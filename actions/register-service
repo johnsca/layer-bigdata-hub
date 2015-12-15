@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+
+import sys
+import yaml
+
+from charmhelpers.core.hookenv import action_get
+from charmhelpers.core.hookenv import action_set
+from charmhelpers.core.hookenv import action_fail
+
+sys.path.extend('lib')
+from charms.bigdata_hub import register_service, update_clients
+
+
+def main():
+    try:
+        name = action_get('name')
+        data = yaml.safe_load(action_get('data'))
+    except ValueError as e:
+        action_fail('Error parsing data: {}'.format(e))
+        return
+    if 'ip' not in data:
+        action_fail('Data is missing IP address')
+        return
+
+    uuid = register_service(name, data)
+    update_clients()
+
+    action_set({'uuid': str(uuid)})
+
+
+if __name__ == '__main__':
+    main()
